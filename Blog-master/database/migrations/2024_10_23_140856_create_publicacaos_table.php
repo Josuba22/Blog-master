@@ -14,13 +14,27 @@ return new class extends Migration
         Schema::create('publicacaos', function (Blueprint $table) {
             $table->id();
             $table->string('foto');
-            $table->string('titulo_prato');
+            $table->string('titulo');
             $table->string('local');
             $table->string('cidade');
-            $table->unsignedBigInteger('empresa_id');
-            $table->dateTime('create_at');
-            $table->dateTime('update_at');
             $table->timestamps();
+
+            //relacionamentos:
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')
+            ->references('id')
+            ->on('empresas')
+            ->onDelete('cascade');
+            $table->unsignedBigInteger('comentario_id');
+            $table->foreign('comentario_id')
+            ->references('id')
+            ->on('comentarios')
+            ->onDelete('cascade');
+            $table->unsignedBigInteger('avaliacao_id');
+            $table->foreign('avaliacao_id')
+            ->references('id')
+            ->on('avaliacoes')
+            ->onDelete('cascade');
         });
     }
 
